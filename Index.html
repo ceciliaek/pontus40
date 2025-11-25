@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dörty Thörty 🎉</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #050814;
+      --card-bg: rgba(15, 18, 34, 0.82);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --accent: #0a84ff;
+      --accent-soft: rgba(10, 132, 255, 0.16);
+      --accent-secondary: #ff9f0a;
+      --text-primary: #f5f5ff;
+      --text-secondary: #a5a7c5;
+      --radius-lg: 26px;
+      --radius-xl: 34px;
+      --shadow-strong: 0 32px 80px rgba(0, 0, 0, 0.75);
+      --blur: 30px;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b1f3b 0, #050814 55%, #000 100%);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* iOS-style färgblobbar i bakgrunden */
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.85;
+      z-index: -2;
+    }
+
+    body::before {
+      background: radial-gradient(circle at center, #0a84ff, #5ac8fa 60%, transparent 70%);
+      top: -80px;
+      left: -40px;
+    }
+
+    body::after {
+      background: radial-gradient(circle at center, #ff2d55, #ff9f0a 60%, transparent 70%);
+      bottom: -120px;
+      right: -40px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 960px;
+      background: var(--card-bg);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-strong);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 1.1fr;
+    }
+
+    @media (max-width: 820px) {
+      .card {
+        grid-template-columns: 1fr;
+        border-radius: var(--radius-lg);
+      }
+    }
+
+    .hero {
+      position: relative;
+      padding: 2.6rem 2.2rem 2.8rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 2.4rem;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    
+    @keyframes glitter-move {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+      100% {
+        transform: translate3d(-24px, 16px, 0);
+      }
+    }
+
+    @media (max-width: 820px) {
+      .hero {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill-system {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.2rem 0.7rem 0.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #32d74b;
+      box-shadow: 0 0 0 4px rgba(50, 215, 75, 0.2);
+    }
+
+    .date-chip {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-end;
+      padding: 0.25rem 0.1rem;
+      font-variant-numeric: tabular-nums;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .date-chip strong {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }    .hero-media {
+      margin-top: 1.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .disco-gif {
+      width: 120px;
+      max-width: 40%;
+      height: auto;
+      filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.4));
+    }
+
+    }
+
+    .title-block {
+      margin-top: 6.2rem;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .title {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.3rem, 4.8vw, 3rem);
+      line-height: 0.96;
+      letter-spacing: -0.03em;
+    }
+
+    .title span {
+      display: block;
+    }
+
+    .title span:last-child {
+      background: linear-gradient(120deg, #ffd60a, #ff9f0a, #ff2d55);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-top: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .age-label {
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .chip {
+      padding: 0.2rem 0.65rem 0.3rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .info {
+      padding: 2.4rem 2.4rem 2.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1.1rem;
+      }
+
+      .info {
+        padding: 1.9rem 1.6rem 2.1rem;
+      }
+    }
+
+    .info-header h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .info-header p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    .details-card {
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.12), transparent 55%),
+                  rgba(10, 10, 25, 0.82);
+      padding: 1.2rem 1rem 1.2rem 1.1rem;
+      display: grid;
+      gap: 0.7rem;
+      font-size: 0.92rem;
+    }
+
+    .details-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: baseline;
+    }
+
+    .details-label {
+      min-width: 4.2rem;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .details-value {
+      text-align: right;
+    }
+
+    .pill-small {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
+      padding: 0.15rem 0.6rem 0.2rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .pill-dot-soft {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .osa-block h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .fine-print {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.8rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.75rem 0.85rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(8, 11, 25, 0.9);
+      color: var(--text-primary);
+      font: inherit;
+      font-size: 0.92rem;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, transform 0.05s ease;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: rgba(165, 167, 197, 0.66);
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(10, 132, 255, 0.7);
+      background: rgba(8, 11, 25, 1);
+      transform: translateY(-0.5px);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .btn {
+      margin-top: 0.35rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.75rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), #5ac8fa);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 16px 40px rgba(10, 132, 255, 0.55);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+
+    .btn span.icon {
+      font-size: 1.1rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 22px 50px rgba(10, 132, 255, 0.7);
+      filter: saturate(1.15);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 10px 28px rgba(10, 132, 255, 0.55);
+      filter: saturate(1);
+    }
+
+    .footer-note {
+      margin-top: 0.25rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <section class="hero" aria-hidden="false">
+      <div class="hero-top">
+        <div class="pill-system">
+          <span class="pill-dot"></span>
+          <span>Event • Live</span>
+        </div>
+        <div class="date-chip">
+          <span>lör 21 sep</span>
+          <strong>18:00</strong>
+        </div>
+      </div>      
+      </div>
+
+      <div class="title-block">
+        <div class="eyebrow">Birthday session</div>
+        <h1 class="title">
+          <span>Dörty</span>
+          <span>Thörty</span>
+        </h1>
+      </div>
+
+      <div class="hero-bottom">
+        <p class="age-label">30 är det nya 20 – fast med bättre snacks och tidigare läggtid 😴✨</p>
+        <div class="chip-row">
+          <div class="chip">Bubbel & snacks</div>
+          <div class="chip">Bra musik</div>
+          <div class="chip">Vuxenpoäng deluxe</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="info">
+      <header class="info-header">
+        <h2>Du är inbjuden</h2>
+        <p>Vi firar 30 med folk vi tycker om. Kom som du är, stanna så länge du orkar – och hjälp oss fylla kvällen med skratt.</p>
+      </header>
+
+      <div class="details-card">
+        <div class="details-row">
+          <div class="details-label">Datum</div>
+          <div class="details-value">21 september 2025</div>
+        </div>
+        <div class="details-row">
+          <div class="details-label">Tid</div>
+          <div class="details-value">18:00 → sent-ish</div>
+        </div>
+        <div class="details-row">
+          <div class="details-label">Plats</div>
+          <div class="details-value">
+            Enskede
+            <div class="pill-small">
+              <span class="pill-dot-soft"></span>
+              <span>Exakt adress i sms</span>
+            </div>
+          </div>
+        </div>
+        <div class="details-row">
+          <div class="details-label">Dress</div>
+          <div class="details-value">Kom i något du känner dig härlig i ✨</div>
+        </div>
+      </div>
+
+      <div class="osa-block">
+        <h3>OSA</h3>
+        <p class="fine-print">Svara gärna senast <strong>1 september</strong> så vet vi hur mycket mat & bubbel vi ska fixa.</p>
+
+        <!-- Mailto-formulär (enkelt & funkar på GitHub Pages) -->
+        <form action="mailto:dinmail@exempel.se" method="POST" enctype="text/plain">
+          <div>
+            <label for="namn">Namn</label>
+            <input id="namn" type="text" name="namn" placeholder="Ditt namn" required />
+          </div>
+
+          <div>
+            <label for="email">E-post</label>
+            <input id="email" type="email" name="email" placeholder="Din e-post" required />
+          </div>
+
+          <div>
+            <label for="meddelande">Meddelande</label>
+            <textarea id="meddelande" name="meddelande" placeholder="Kommer / kommer inte, +1, allergier, önskelåt…"></textarea>
+          </div>
+
+          <button class="btn" type="submit">
+            <span class="icon">✉️</span>
+            <span>Skicka OSA</span>
+          </button>
+        </form>
+      </div>
+
+      <p class="footer-note">Barn, partners & god stämning välkomna – skriv bara vad som gäller i OSA 💌</p>
+    </section>
+  </main>
+</body>
+</html>
