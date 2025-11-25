@@ -160,11 +160,19 @@
     }
 
     .eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.18em;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
       text-transform: uppercase;
-      color: var(--accent-secondary);
       margin-bottom: 0.75rem;
+      background: linear-gradient(90deg, #5ac8fa 0%, #0a84ff 40%, #7d4dff 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow:
+        0 0 6px rgba(90,200,250,0.5),
+        0 0 18px rgba(10,132,255,0.55),
+        0 0 28px rgba(125,77,255,0.6);
     }
 
     .title {
@@ -486,7 +494,7 @@
       </div>
 
       <div class="title-block">
-        <div class="eyebrow">Birthday session</div>
+        <div class="eyebrow fancy-eyebrow"><span>Pontus</span></div>
         <h1 class="title">
           <span>Dörty</span>
           <span>Förty</span>
@@ -496,9 +504,10 @@
       <div class="hero-bottom">
         <div class="chip-row">
           <div class="chip">Bubbel</div>
-          <div class="chip">Mat</div>
           <div class="chip">Musik</div>
+          <div class="chip">Mat</div>
           <div class="chip">Dans</div>
+          <div class="chip">Tårta</div>
         </div>
       </div>
     </section>
